@@ -30,7 +30,4 @@ workflows:
       - build/ios/ipa/*.ipa
 
     # Publishing is usually configured in the Codemagic UI (App Store Connect API key / credentials)
-    # Uncomment/adjust publishing steps if you configure credentials in the UI
-    publishing:
-      - provider: testers
-        type: testflight
+    # To publish to TestFlight configure the publishing settings in the Codemagic app UI.

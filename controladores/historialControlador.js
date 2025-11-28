@@ -1,6 +1,7 @@
 const historialModelo = require('../modelos/historialModelo');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 
 async function listarHistorial(req, res) {
     try {
@@ -93,7 +94,37 @@ async function crearHistorial(req, res) {
 
         // Si se subieron archivos con multer, construir array de rutas públicas
         const files = req.files || [];
-        const imagenes = files.map(f => '/uploads/historial/' + f.filename);
+        const imagenes = [];
+        // Attempt to move files from tmp to uploads/historial. If move fails, fall back to /uploads/tmp
+        for (const f of files) {
+            const tmpFull = f.path; // path on disk (in tmp)
+            const uploadsDir = path.join(__dirname, '..', 'uploads', 'historial');
+            try {
+                if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+                const destFull = path.join(uploadsDir, f.filename);
+                try {
+                    fs.renameSync(tmpFull, destFull);
+                    imagenes.push('/uploads/historial/' + f.filename);
+                    continue;
+                } catch (e) {
+                    // rename failed, try copy
+                    try {
+                        const data = fs.readFileSync(tmpFull);
+                        fs.writeFileSync(destFull, data);
+                        try { fs.unlinkSync(tmpFull); } catch (_) {}
+                        imagenes.push('/uploads/historial/' + f.filename);
+                        continue;
+                    } catch (ee) {
+                        console.warn('Could not move upload to uploads/historial, keeping in tmp:', ee);
+                    }
+                }
+            } catch (e) {
+                console.warn('Uploads dir not writable or creation failed:', e);
+            }
+            // Fallback: keep in tmp and expose via /uploads/tmp
+            const basename = path.basename(f.path);
+            imagenes.push('/uploads/tmp/' + basename);
+        }
 
         // req.body contiene los campos de texto (multer los conserva)
         const payload = Object.assign({}, req.body);

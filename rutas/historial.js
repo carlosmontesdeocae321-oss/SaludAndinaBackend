@@ -7,21 +7,23 @@ const multer = require('multer');
 const path = require('path');
 
 // Configuración de multer: guardar en uploads/historial
+const os = require('os');
+// Use system temp dir for initial storage to avoid ENOENT when uploads/ is not writable
 const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		const dest = path.join(__dirname, '..', 'uploads', 'historial');
-		try {
-			const fs = require('fs');
-			if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
-		} catch (e) {
-			console.warn('Could not create uploads/historial dir:', e);
-		}
-		cb(null, dest);
-	},
-	filename: function (req, file, cb) {
-		const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-		cb(null, unique + path.extname(file.originalname));
-	}
+    destination: function (req, file, cb) {
+        const tmpDir = path.join(os.tmpdir(), 'clinica_uploads');
+        try {
+            const fs = require('fs');
+            if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir, { recursive: true });
+        } catch (e) {
+            console.warn('Could not create tmp upload dir:', e);
+        }
+        cb(null, tmpDir);
+    },
+    filename: function (req, file, cb) {
+        const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
+        cb(null, unique + path.extname(file.originalname));
+    }
 });
 const upload = multer({ storage });
 

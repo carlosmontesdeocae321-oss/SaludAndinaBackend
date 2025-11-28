@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+const os = require('os');
 const fs = require('fs');
 
 // Middleware global
@@ -23,6 +24,8 @@ try {
 }
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Fallback: servir archivos colocados temporalmente en el tmp del sistema
+app.use('/uploads/tmp', express.static(os.tmpdir()));
 // Servir páginas públicas del backend (paneles simples)
 app.use('/admin', express.static(path.join(__dirname, 'public')));
 

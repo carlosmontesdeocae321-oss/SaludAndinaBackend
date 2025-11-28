@@ -58,8 +58,22 @@ async function obtenerCompra(compraId) {
   return rows[0];
 }
 
+async function listarComprasPendientes({ clinica_id = null } = {}) {
+  await ensureTable();
+  if (clinica_id) {
+    const [rows] = await pool.query('SELECT * FROM compras_promociones WHERE status = ? AND clinica_id = ? ORDER BY creado_en DESC', ['pending', clinica_id]);
+    return rows;
+  }
+  const [rows] = await pool.query('SELECT * FROM compras_promociones WHERE status = ? ORDER BY creado_en DESC', ['pending']);
+  return rows;
+}
+
 module.exports = {
   crearCompraPromocion,
   confirmarCompra,
   obtenerCompra
 };
+
+// Export adicional
+module.exports.listarComprasPendientes = listarComprasPendientes;
+

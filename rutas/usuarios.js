@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../config/db');
+const usuariosModelo = require('../modelos/usuariosModelo');
 const usuariosControlador = require('../controladores/usuariosControlador');
 const { auth } = require('../middlewares/auth');
 const filtroClinica = require('../middlewares/clinica');
@@ -17,16 +18,13 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Faltan datos obligatorios' });
     }
     try {
-      const [result] = await db.query(
-        'INSERT INTO usuarios (usuario, clave, rol) VALUES (?, ?, ?)',
-        [usuario, clave, rol]
-      );
-      return res.status(201).json({ id: result.insertId, usuario, rol });
+      const nuevoId = await usuariosModelo.crearUsuario({ usuario, clave, rol, dueno: req.body.dueno });
+      return res.status(201).json({ id: nuevoId, usuario, rol });
     } catch (err) {
-      if (err.code === 'ER_DUP_ENTRY') {
+      if (err && err.code === 'ER_DUP_ENTRY') {
         return res.status(400).json({ error: 'El usuario ya existe' });
       }
-      return res.status(500).json({ error: 'Error al crear doctor individual: ' + err.message });
+      return res.status(500).json({ error: 'Error al crear doctor individual: ' + (err && err.message ? err.message : err) });
     }
   }
   return res.status(403).json({ error: 'Solo se permite registrar doctor individual sin clínica en esta ruta.' });
@@ -47,6 +45,11 @@ router.get('/check', async (req, res) => {
 
 // Ruta pública para login
 router.post('/login', usuariosControlador.login);
+
+// Solicitar recuperación de contraseña (public)
+router.post('/reset-request', usuariosControlador.requestPasswordReset);
+// Realizar reset con token
+router.post('/reset', usuariosControlador.performPasswordReset);
 
 // Endpoint público para vincular doctor como dueño (si aplica flujo público)
 router.post('/vincular-dueno', usuariosControlador.vincularDoctorComoDueno);

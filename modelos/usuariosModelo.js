@@ -1,3 +1,7 @@
+const pool = require('../config/db');
+const bcrypt = require('bcryptjs');
+const SALT_ROUNDS = 10;
+
 // Vincular doctor individual como dueño de clínica
 async function vincularDoctorComoDueno(doctorId, clinicaId) {
     const [result] = await pool.query(
@@ -6,7 +10,6 @@ async function vincularDoctorComoDueno(doctorId, clinicaId) {
     );
     return result.affectedRows;
 }
-const pool = require('../config/db');
 
 // Obtener todos los usuarios de la clínica
 async function obtenerUsuariosPorClinica(clinica_id) {
@@ -29,11 +32,13 @@ async function obtenerUsuarioPorId(id, clinica_id) {
 // Crear usuario
 async function crearUsuario(usuario) {
     const { usuario: nombre, clave, rol, clinica_id, dueno } = usuario;
+    // Hash the password before storing
+    const hashed = await bcrypt.hash(clave, SALT_ROUNDS);
     if (rol === 'doctor' && !clinica_id) {
         // Doctor individual sin clínica
         const [result] = await pool.query(
             'INSERT INTO usuarios (usuario, clave, rol, dueno) VALUES (?, ?, ?, ?)',
-            [nombre, clave, rol, dueno ? 1 : 0]
+            [nombre, hashed, rol, dueno ? 1 : 0]
         );
         return result.insertId;
     } else {
@@ -42,7 +47,7 @@ async function crearUsuario(usuario) {
         const duenoValue = 0;
         const [result] = await pool.query(
             'INSERT INTO usuarios (usuario, clave, rol, clinica_id, dueno) VALUES (?, ?, ?, ?, ?)',
-            [nombre, clave, rol, clinica_id, duenoValue]
+            [nombre, hashed, rol, clinica_id, duenoValue]
         );
         return result.insertId;
     }
@@ -59,8 +64,27 @@ async function obtenerUsuarioPorCredenciales(usuario, clave) {
         if (!rows || rows.length === 0) return undefined;
         // Verificamos la clave aquí para poder loguear diferencias
         const row = rows[0];
-        if (row.clave !== clave) {
-            console.log('===> Clave no coincide. almacenada:', row.clave, 'recibida:', clave);
+        let match = false;
+        if (typeof row.clave === 'string' && row.clave.startsWith('$2')) {
+            // Stored as bcrypt hash
+            match = await bcrypt.compare(clave, row.clave);
+        } else {
+            // Legacy plain-text password: compare directly and upgrade to hashed
+            if (row.clave === clave) {
+                match = true;
+                try {
+                    const newHash = await bcrypt.hash(clave, SALT_ROUNDS);
+                    await pool.query('UPDATE usuarios SET clave=? WHERE id=?', [newHash, row.id]);
+                    console.log('===> Password legacy upgraded to bcrypt for user id', row.id);
+                } catch (e) {
+                    console.error('Error al actualizar clave a hashed:', e);
+                }
+            } else {
+                match = false;
+            }
+        }
+        if (!match) {
+            console.log('===> Clave no coincide. almacenada: <hidden>, recibida:', clave);
             return undefined;
         }
         // Devolver sin la clave
@@ -76,11 +100,20 @@ async function obtenerUsuarioPorCredenciales(usuario, clave) {
 // Actualizar usuario
 async function actualizarUsuario(id, usuario, clinica_id) {
     const { usuario: nombre, clave, rol } = usuario;
-    const [result] = await pool.query(
-        'UPDATE usuarios SET usuario=?, clave=?, rol=? WHERE id=? AND clinica_id=?',
-        [nombre, clave, rol, id, clinica_id]
-    );
-    return result.affectedRows;
+    if (typeof clave !== 'undefined' && clave !== null && clave !== '') {
+        const hashed = await bcrypt.hash(clave, SALT_ROUNDS);
+        const [result] = await pool.query(
+            'UPDATE usuarios SET usuario=?, clave=?, rol=? WHERE id=? AND clinica_id=?',
+            [nombre, hashed, rol, id, clinica_id]
+        );
+        return result.affectedRows;
+    } else {
+        const [result] = await pool.query(
+            'UPDATE usuarios SET usuario=?, rol=? WHERE id=? AND clinica_id=?',
+            [nombre, rol, id, clinica_id]
+        );
+        return result.affectedRows;
+    }
 }
 
 // Eliminar usuario

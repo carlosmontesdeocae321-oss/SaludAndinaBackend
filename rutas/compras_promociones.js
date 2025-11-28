@@ -3,6 +3,46 @@ const router = express.Router();
 const pagosService = require('../servicios/pagosService');
 const { auth } = require('../middlewares/auth');
 const pool = require('../config/db');
+const bcrypt = require('bcryptjs');
+const SALT_ROUNDS = 10;
+
+// Admin: listar compras pendientes para la clínica del usuario (o todas si rol=admin)
+router.get('/admin/list', auth, async (req, res) => {
+  try {
+    const user = req.user || {};
+    // permitir sólo dueños con clinica_id o usuarios con rol 'admin'
+    if (!user.dueno && user.rol !== 'admin') {
+      return res.status(403).json({ message: 'Acceso no autorizado' });
+    }
+
+    const clinicaId = user.clinica_id || null;
+    const pagosService = require('../servicios/pagosService');
+    const pendientes = await pagosService.listarComprasPendientes({ clinica_id: clinicaId });
+    res.json({ ok: true, compras: pendientes });
+  } catch (err) {
+    console.error('Error admin/list compras:', err);
+    res.status(500).json({ ok: false, message: err.message });
+  }
+});
+
+// Admin: confirmar compra (protegido)
+router.post('/admin/confirm', auth, async (req, res) => {
+  try {
+    const user = req.user || {};
+    if (!user.dueno && user.rol !== 'admin') {
+      return res.status(403).json({ message: 'Acceso no autorizado' });
+    }
+    const { compraId, provider_txn_id } = req.body || {};
+    if (!compraId) return res.status(400).json({ message: 'compraId requerido' });
+    const pagosService = require('../servicios/pagosService');
+    const ok = await pagosService.confirmarCompra({ compraId, provider_txn_id });
+    if (!ok) return res.status(404).json({ message: 'Compra no encontrada' });
+    res.json({ ok: true, message: 'Compra confirmada' });
+  } catch (err) {
+    console.error('Error admin/confirm:', err);
+    res.status(500).json({ ok: false, message: err.message });
+  }
+});
 
 // Crear una compra de promoción (permitir anónimo: no requiere auth)
 router.post('/crear', async (req, res) => {
@@ -81,10 +121,12 @@ router.post('/crear-clinica', async (req, res) => {
     await conn.beginTransaction();
     const [cRes] = await conn.query('INSERT INTO clinicas (nombre, direccion) VALUES (?, ?)', [nombre, direccion || '']);
     const clinicaId = cRes.insertId;
+    // Hash the password before storing to avoid plain-text passwords
+    const hashed = await bcrypt.hash(clave, SALT_ROUNDS);
     // Crear el usuario con rol 'doctor' y marcarlo como dueño (dueno=1).
     // Así evitamos valores inesperados en la columna `rol` y mantenemos la distinción
     // de dueño mediante el flag `dueno`.
-    const [uRes] = await conn.query('INSERT INTO usuarios (usuario, clave, rol, clinica_id, dueno) VALUES (?, ?, ?, ?, 1)', [usuario, clave, 'doctor', clinicaId]);
+    const [uRes] = await conn.query('INSERT INTO usuarios (usuario, clave, rol, clinica_id, dueno) VALUES (?, ?, ?, ?, 1)', [usuario, hashed, 'doctor', clinicaId]);
     // Intentar asignar un plan por defecto a la clínica para que tenga límites iniciales.
     // POR QUÉ: usamos la misma conexión `conn` dentro de la transacción para evitar bloqueos
     // causados por mezclar la transacción con consultas que abren nuevas conexiones.

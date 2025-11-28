@@ -9,6 +9,8 @@ app.use(express.json()); // Para recibir JSON en body
 
 // Servir archivos estáticos subidos
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Servir páginas públicas del backend (paneles simples)
+app.use('/admin', express.static(path.join(__dirname, 'public')));
 
 // Importar rutas
 const pacientesRutas = require('./rutas/pacientes');

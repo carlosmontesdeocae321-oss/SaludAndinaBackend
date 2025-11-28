@@ -13,6 +13,10 @@ async function vincularDoctorComoDueno(req, res) {
     }
 }
 const usuariosModelo = require('../modelos/usuariosModelo');
+const pool = require('../config/db');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
 
 // === LOGIN ===
 async function login(req, res) {
@@ -131,5 +135,77 @@ module.exports = {
     crearUsuario,
     actualizarUsuario,
     eliminarUsuario,
-    vincularDoctorComoDueno
+    vincularDoctorComoDueno,
+    requestPasswordReset,
+    performPasswordReset
 };
+
+// === RECUPERACIÓN DE CONTRASEÑA ===
+async function requestPasswordReset(req, res) {
+    try {
+        const { usuario, email } = req.body || {};
+        if (!usuario && !email) return res.status(400).json({ message: 'usuario o email requeridos' });
+        const [rows] = await pool.query('SELECT id, usuario, email FROM usuarios WHERE usuario=? OR email=? LIMIT 1', [usuario || null, email || null]);
+        if (!rows || rows.length === 0) {
+            // Evitar enumeración: responder 200 aunque no exista
+            return res.json({ ok: true });
+        }
+        const user = rows[0];
+        const token = crypto.randomBytes(32).toString('hex');
+        const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+        const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hora
+        await pool.query('INSERT INTO password_resets (user_id, token_hash, expires_at) VALUES (?, ?, ?)', [user.id, tokenHash, expiresAt]);
+
+        const resetUrl = `${process.env.FRONTEND_URL || ''}/reset-password?token=${token}&uid=${user.id}`;
+
+        // Enviar email si SMTP configurado
+        if (process.env.SMTP_HOST && user.email) {
+            try {
+                const transporter = nodemailer.createTransport({
+                    host: process.env.SMTP_HOST,
+                    port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 587,
+                    secure: process.env.SMTP_SECURE === 'true',
+                    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined
+                });
+                await transporter.sendMail({
+                    from: process.env.EMAIL_FROM || `"Clinica" <no-reply@clinica.app>`,
+                    to: user.email,
+                    subject: 'Recuperar contraseña',
+                    text: `Para recuperar tu contraseña visita: ${resetUrl}`,
+                    html: `<p>Para recuperar tu contraseña pulsa <a href="${resetUrl}">aquí</a>.</p>`
+                });
+            } catch (e) {
+                console.error('Error enviando email de recuperación:', e);
+            }
+        }
+
+        if (process.env.DEV_RETURN_TOKEN === 'true') {
+            return res.json({ ok: true, debugToken: token, resetUrl });
+        }
+
+        return res.json({ ok: true });
+    } catch (err) {
+        console.error('Error requestPasswordReset:', err);
+        return res.status(500).json({ message: 'Error interno' });
+    }
+}
+
+async function performPasswordReset(req, res) {
+    try {
+        const { token, uid, newPassword } = req.body || {};
+        if (!token || !uid || !newPassword) return res.status(400).json({ message: 'Faltan datos' });
+        const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+        const [rows] = await pool.query('SELECT id, expires_at, used FROM password_resets WHERE user_id=? AND token_hash=? LIMIT 1', [uid, tokenHash]);
+        if (!rows || rows.length === 0) return res.status(400).json({ message: 'Token inválido' });
+        const reset = rows[0];
+        if (reset.used) return res.status(400).json({ message: 'Token ya usado' });
+        if (new Date(reset.expires_at) < new Date()) return res.status(400).json({ message: 'Token expirado' });
+        const hashed = await bcrypt.hash(newPassword, 10);
+        await pool.query('UPDATE usuarios SET clave=? WHERE id=?', [hashed, uid]);
+        await pool.query('UPDATE password_resets SET used=1 WHERE id=?', [reset.id]);
+        return res.json({ ok: true });
+    } catch (err) {
+        console.error('Error performPasswordReset:', err);
+        return res.status(500).json({ message: 'Error interno' });
+    }
+}

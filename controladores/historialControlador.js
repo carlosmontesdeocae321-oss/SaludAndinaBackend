@@ -1,12 +1,45 @@
 const historialModelo = require('../modelos/historialModelo');
+const path = require('path');
+const fs = require('fs');
 
 async function listarHistorial(req, res) {
     try {
         if (req.clinica_id === null && req.user && req.user.rol === 'doctor') {
             const registros = await historialModelo.obtenerHistorialPorDoctor(req.user.id);
+            // Filter imagenes arrays for existing files
+            for (const r of registros) {
+                try {
+                    if (Array.isArray(r.imagenes)) {
+                        r.imagenes = r.imagenes.filter(img => {
+                            if (!img) return false;
+                            const rel = img.startsWith('/') ? img.slice(1) : img;
+                            const full = path.join(__dirname, '..', rel);
+                            const ok = fs.existsSync(full);
+                            if (!ok) console.warn('Historial imagen faltante:', full);
+                            return ok;
+                        });
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            }
             return res.json(registros);
         }
         const registros = await historialModelo.obtenerHistorialPorClinica(req.clinica_id);
+        for (const r of registros) {
+            try {
+                if (Array.isArray(r.imagenes)) {
+                    r.imagenes = r.imagenes.filter(img => {
+                        if (!img) return false;
+                        const rel = img.startsWith('/') ? img.slice(1) : img;
+                        const full = path.join(__dirname, '..', rel);
+                        const ok = fs.existsSync(full);
+                        if (!ok) console.warn('Historial imagen faltante:', full);
+                        return ok;
+                    });
+                }
+            } catch (e) {}
+        }
         res.json(registros);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -32,6 +65,20 @@ async function verHistorial(req, res) {
                 return res.status(403).json({ message: 'Acceso no permitido' });
             }
         }
+        // Filter registro.imagenes for existing files
+        try {
+            if (Array.isArray(registro.imagenes)) {
+                registro.imagenes = registro.imagenes.filter(img => {
+                    if (!img) return false;
+                    const rel = img.startsWith('/') ? img.slice(1) : img;
+                    const full = path.join(__dirname, '..', rel);
+                    const ok = fs.existsSync(full);
+                    if (!ok) console.warn('Historial imagen faltante (ver):', full);
+                    return ok;
+                });
+            }
+        } catch (e) {}
+
         res.json(registro);
     } catch (err) {
         res.status(500).json({ message: err.message });

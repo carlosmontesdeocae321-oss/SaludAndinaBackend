@@ -49,7 +49,8 @@ class ApiService {
     return res.statusCode == 200;
   }
 
-  static const String baseUrl = "http://127.0.0.1:3000";
+  // Use a compile-time define so we can override with --dart-define=BASE_URL="https://..."
+  static const String baseUrl = String.fromEnvironment('BASE_URL', defaultValue: 'http://127.0.0.1:3000');
 
   // Simple in-memory cache for profile lookups to avoid repeated network churn
   static final Map<int, Map<String, dynamic>> _profileCache = {};

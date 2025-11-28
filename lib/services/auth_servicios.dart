@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  static const String baseUrl = "http://127.0.0.1:3000";
+  // Allow overriding baseUrl at build/run time with --dart-define=BASE_URL
+  static const String baseUrl = String.fromEnvironment('BASE_URL', defaultValue: 'http://127.0.0.1:3000');
 
   static Future<bool> login(String usuario, String clave) async {
     final url = Uri.parse('$baseUrl/api/usuarios/login');

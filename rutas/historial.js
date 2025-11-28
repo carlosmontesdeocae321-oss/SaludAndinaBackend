@@ -9,7 +9,14 @@ const path = require('path');
 // Configuración de multer: guardar en uploads/historial
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, path.join(__dirname, '..', 'uploads', 'historial'));
+		const dest = path.join(__dirname, '..', 'uploads', 'historial');
+		try {
+			const fs = require('fs');
+			if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+		} catch (e) {
+			console.warn('Could not create uploads/historial dir:', e);
+		}
+		cb(null, dest);
 	},
 	filename: function (req, file, cb) {
 		const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);

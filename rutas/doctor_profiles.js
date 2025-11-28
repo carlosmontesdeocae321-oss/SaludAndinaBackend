@@ -10,7 +10,14 @@ const path = require('path');
 // Guardar avatars en uploads/avatars
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '..', 'uploads', 'avatars'));
+    const dest = path.join(__dirname, '..', 'uploads', 'avatars');
+    try {
+      const fs = require('fs');
+      if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    } catch (e) {
+      console.warn('Could not create uploads/avatars dir:', e);
+    }
+    cb(null, dest);
   },
   filename: function (req, file, cb) {
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -22,7 +29,14 @@ const upload = multer({ storage });
 // Storage para documentos (certificados, títulos)
 const storageDocs = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '..', 'uploads', 'documents'));
+    const dest = path.join(__dirname, '..', 'uploads', 'documents');
+    try {
+      const fs = require('fs');
+      if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+    } catch (e) {
+      console.warn('Could not create uploads/documents dir:', e);
+    }
+    cb(null, dest);
   },
   filename: function (req, file, cb) {
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);

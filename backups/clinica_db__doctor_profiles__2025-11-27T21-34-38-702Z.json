@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "user_id": 1,
+    "nombre": "ivar",
+    "especialidad": "montero",
+    "apellido": "montesdeoca",
+    "direccion": "Duran",
+    "telefono": "0962542536",
+    "email": "carlos@montesdeoca.com",
+    "bio": "Buenos viajes",
+    "avatar_url": "/uploads/avatars/1764097769470-439485898.jpeg",
+    "created_at": "2025-11-25T00:07:41.000Z",
+    "updated_at": "2025-11-25T19:15:55.000Z"
+  },
+  {
+    "id": 2,
+    "user_id": 9,
+    "nombre": "Ivar",
+    "especialidad": "Traumatologo",
+    "apellido": "montesdeoca",
+    "direccion": "Duran",
+    "telefono": "0962532536",
+    "email": "Carlos@montesdeoca.com",
+    "bio": "Buenos viajes",
+    "avatar_url": "/uploads/avatars/1764114677776-174916808.png",
+    "created_at": "2025-11-25T23:51:17.000Z",
+    "updated_at": "2025-11-25T23:51:17.000Z"
+  },
+  {
+    "id": 8,
+    "user_id": 15,
+    "nombre": "domenica",
+    "especialidad": "trumatologo",
+    "apellido": "montesdeoca",
+    "direccion": "duran",
+    "telefono": "123124124124",
+    "email": "adas@dasd.com",
+    "bio": "123qdqw12d",
+    "avatar_url": "/uploads/avatars/1764123581726-294965299.png",
+    "created_at": "2025-11-26T02:19:41.000Z",
+    "updated_at": "2025-11-26T02:19:41.000Z"
+  },
+  {
+    "id": 9,
+    "user_id": 17,
+    "nombre": "Kevin",
+    "especialidad": "Marihuanero",
+    "apellido": "Rodriguez",
+    "direccion": "Duran",
+    "telefono": "1234567890",
+    "email": "andres@montesdeo.caom",
+    "bio": "le gusta fumar",
+    "avatar_url": "/uploads/avatars/1764131046267-910457733.png",
+    "created_at": "2025-11-26T04:24:06.000Z",
+    "updated_at": "2025-11-26T04:24:06.000Z"
+  }
+]

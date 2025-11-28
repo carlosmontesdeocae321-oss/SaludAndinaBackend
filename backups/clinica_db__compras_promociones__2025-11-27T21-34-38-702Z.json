@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "titulo": "Clínica Pequeña",
+    "monto": "20.00",
+    "clinica_id": null,
+    "usuario_id": 1,
+    "status": "completed",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-25T00:13:26.000Z"
+  },
+  {
+    "id": 2,
+    "titulo": "Combo VIP Multi-Sucursal",
+    "monto": "150.00",
+    "clinica_id": 1,
+    "usuario_id": 1,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-25T00:40:01.000Z"
+  },
+  {
+    "id": 3,
+    "titulo": "Clínica Pequeña",
+    "monto": "20.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "completed",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T03:50:39.000Z"
+  },
+  {
+    "id": 4,
+    "titulo": "Clínica Mediana",
+    "monto": "40.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T03:52:17.000Z"
+  },
+  {
+    "id": 5,
+    "titulo": "Clínica Pequeña",
+    "monto": "20.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T03:53:10.000Z"
+  },
+  {
+    "id": 6,
+    "titulo": "Clínica Mediana",
+    "monto": "40.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T03:53:12.000Z"
+  },
+  {
+    "id": 7,
+    "titulo": "Clínica Grande",
+    "monto": "100.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T03:53:14.000Z"
+  },
+  {
+    "id": 8,
+    "titulo": "Combo VIP Multi-Sucursal",
+    "monto": "150.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T03:53:16.000Z"
+  },
+  {
+    "id": 9,
+    "titulo": "Clínica Pequeña",
+    "monto": "20.00",
+    "clinica_id": null,
+    "usuario_id": null,
+    "status": "pending",
+    "provider": "mock",
+    "provider_txn_id": null,
+    "creado_en": "2025-11-26T04:09:00.000Z"
+  }
+]

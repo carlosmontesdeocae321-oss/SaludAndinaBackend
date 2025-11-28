@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "clinica_id": 1,
+    "plan_id": 1,
+    "fecha_inicio": "2025-11-24T05:00:00.000Z",
+    "fecha_fin": null,
+    "activo": 1
+  },
+  {
+    "id": 2,
+    "clinica_id": 2,
+    "plan_id": 1,
+    "fecha_inicio": "2025-11-25T05:00:00.000Z",
+    "fecha_fin": null,
+    "activo": 1
+  }
+]

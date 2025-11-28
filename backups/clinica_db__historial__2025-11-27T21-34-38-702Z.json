@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "paciente_id": 1,
+    "motivo_consulta": "Dolor de cabeza",
+    "peso": "11.30",
+    "estatura": "174.00",
+    "imc": "12.00",
+    "presion": "12",
+    "frecuencia_cardiaca": 12,
+    "frecuencia_respiratoria": 12,
+    "temperatura": "12.0",
+    "otros": null,
+    "diagnostico": "Malestar estomacal",
+    "tratamiento": "2 sueros",
+    "receta": "2 protos 2 camladores 2 estomacales...",
+    "fecha": "2025-11-24T05:00:00.000Z",
+    "imagenes": [
+      "/uploads/historial/1764029350428-451448012.png",
+      "/uploads/historial/1764029350445-911671053.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "paciente_id": 3,
+    "motivo_consulta": "Dolor de cabeza",
+    "peso": "1.00",
+    "estatura": "1.00",
+    "imc": "1.00",
+    "presion": "1",
+    "frecuencia_cardiaca": 1,
+    "frecuencia_respiratoria": 1,
+    "temperatura": "1.0",
+    "otros": null,
+    "diagnostico": "Malestar ",
+    "tratamiento": "2 inyecciones",
+    "receta": "",
+    "fecha": "2025-11-25T05:00:00.000Z",
+    "imagenes": [
+      "/uploads/historial/1764114566187-578622303.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "paciente_id": 5,
+    "motivo_consulta": "Dol.or de cabeza",
+    "peso": "1.00",
+    "estatura": "1.00",
+    "imc": "1.00",
+    "presion": "1",
+    "frecuencia_cardiaca": 1,
+    "frecuencia_respiratoria": 1,
+    "temperatura": "1.0",
+    "otros": null,
+    "diagnostico": "dolor de ano",
+    "tratamiento": "dildos",
+    "receta": "",
+    "fecha": "2025-11-25T05:00:00.000Z",
+    "imagenes": [
+      "/uploads/historial/1764131313587-101805969.jpg",
+      "/uploads/historial/1764131313588-452346504.jpeg",
+      "/uploads/historial/1764131313588-451829088.png"
+    ]
+  }
+]

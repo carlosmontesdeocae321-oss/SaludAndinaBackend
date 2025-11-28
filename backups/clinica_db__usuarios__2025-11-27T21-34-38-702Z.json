@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "usuario": "ivar",
+    "clave": "1234",
+    "rol": "doctor",
+    "creado_en": "2025-11-25T00:06:43.000Z",
+    "clinica_id": null,
+    "dueno": 0
+  },
+  {
+    "id": 2,
+    "usuario": "gael",
+    "clave": "1234",
+    "rol": "doctor",
+    "creado_en": "2025-11-25T00:13:43.000Z",
+    "clinica_id": 1,
+    "dueno": 1
+  },
+  {
+    "id": 9,
+    "usuario": "ivar1",
+    "clave": "1234",
+    "rol": "doctor",
+    "creado_en": "2025-11-25T23:47:45.000Z",
+    "clinica_id": null,
+    "dueno": 0
+  },
+  {
+    "id": 15,
+    "usuario": "dome",
+    "clave": "dome",
+    "rol": "doctor",
+    "creado_en": "2025-11-26T02:19:10.000Z",
+    "clinica_id": null,
+    "dueno": 0
+  },
+  {
+    "id": 16,
+    "usuario": "kia",
+    "clave": "1234",
+    "rol": "doctor",
+    "creado_en": "2025-11-26T03:50:58.000Z",
+    "clinica_id": 2,
+    "dueno": 1
+  },
+  {
+    "id": 17,
+    "usuario": "kevin",
+    "clave": "1234",
+    "rol": "doctor",
+    "creado_en": "2025-11-26T04:22:48.000Z",
+    "clinica_id": null,
+    "dueno": 0
+  },
+  {
+    "id": 18,
+    "usuario": "mario",
+    "clave": "1234",
+    "rol": "doctor",
+    "creado_en": "2025-11-26T05:09:58.000Z",
+    "clinica_id": 2,
+    "dueno": 0
+  },
+  {
+    "id": 19,
+    "usuario": "loe",
+    "clave": "loe",
+    "rol": "doctor",
+    "creado_en": "2025-11-26T05:20:11.000Z",
+    "clinica_id": null,
+    "dueno": 0
+  },
+  {
+    "id": 20,
+    "usuario": "sele",
+    "clave": "sele",
+    "rol": "doctor",
+    "creado_en": "2025-11-26T05:39:46.000Z",
+    "clinica_id": null,
+    "dueno": 0
+  }
+]

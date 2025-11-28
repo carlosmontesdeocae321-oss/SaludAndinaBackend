@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "paciente_id": 1,
+    "fecha": "2025-11-24T05:00:00.000Z",
+    "hora": "21:09:00",
+    "motivo": "Nueva consulta",
+    "estado": "confirmada",
+    "creado_en": "2025-11-25T00:10:01.000Z",
+    "actualizado_en": "2025-11-25T00:10:05.000Z",
+    "clinica_id": null
+  },
+  {
+    "id": 2,
+    "paciente_id": 2,
+    "fecha": "2025-11-24T05:00:00.000Z",
+    "hora": "21:14:00",
+    "motivo": "Gallardas",
+    "estado": "confirmada",
+    "creado_en": "2025-11-25T00:15:08.000Z",
+    "actualizado_en": "2025-11-26T03:01:15.000Z",
+    "clinica_id": 1
+  },
+  {
+    "id": 3,
+    "paciente_id": 1,
+    "fecha": "2025-11-24T05:00:00.000Z",
+    "hora": "23:17:00",
+    "motivo": "nolan",
+    "estado": "confirmada",
+    "creado_en": "2025-11-25T00:17:19.000Z",
+    "actualizado_en": "2025-11-26T03:01:16.000Z",
+    "clinica_id": 1
+  },
+  {
+    "id": 4,
+    "paciente_id": 3,
+    "fecha": "2025-11-25T05:00:00.000Z",
+    "hora": "20:50:00",
+    "motivo": "Nueva consulta",
+    "estado": "programada",
+    "creado_en": "2025-11-25T23:50:14.000Z",
+    "actualizado_en": "2025-11-25T23:50:14.000Z",
+    "clinica_id": null
+  },
+  {
+    "id": 5,
+    "paciente_id": 4,
+    "fecha": "2025-11-25T05:00:00.000Z",
+    "hora": "22:30:00",
+    "motivo": "klkjl",
+    "estado": "programada",
+    "creado_en": "2025-11-26T02:30:54.000Z",
+    "actualizado_en": "2025-11-26T02:30:54.000Z",
+    "clinica_id": null
+  },
+  {
+    "id": 6,
+    "paciente_id": 5,
+    "fecha": "2025-11-25T05:00:00.000Z",
+    "hora": "23:28:00",
+    "motivo": "ASCDCASD",
+    "estado": "programada",
+    "creado_en": "2025-11-26T04:28:49.000Z",
+    "actualizado_en": "2025-11-26T04:28:49.000Z",
+    "clinica_id": null
+  }
+]

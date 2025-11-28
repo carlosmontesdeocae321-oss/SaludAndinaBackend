@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Nuevos Orizontes",
+    "direccion": "Duran",
+    "imagen_url": "/uploads/clinicas/clinic_1764112247103.png",
+    "telefono_contacto": "0962542536"
+  },
+  {
+    "id": 2,
+    "nombre": "Iess",
+    "direccion": "Duran centro",
+    "imagen_url": "/uploads/clinicas/clinic_1764129095092.jpeg",
+    "telefono_contacto": "0962542536"
+  }
+]

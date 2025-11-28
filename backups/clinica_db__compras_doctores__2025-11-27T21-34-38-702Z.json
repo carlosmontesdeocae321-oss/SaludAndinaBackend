@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "clinica_id": 1,
+    "usuario_id": 1,
+    "fecha_compra": "2025-11-24T05:00:00.000Z",
+    "monto": "10.00"
+  },
+  {
+    "id": 2,
+    "clinica_id": 1,
+    "usuario_id": 1,
+    "fecha_compra": "2025-11-24T05:00:00.000Z",
+    "monto": "10.00"
+  },
+  {
+    "id": 3,
+    "clinica_id": 1,
+    "usuario_id": 9,
+    "fecha_compra": "2025-11-25T05:00:00.000Z",
+    "monto": "10.00"
+  },
+  {
+    "id": 4,
+    "clinica_id": 1,
+    "usuario_id": 17,
+    "fecha_compra": "2025-11-25T05:00:00.000Z",
+    "monto": "10.00"
+  },
+  {
+    "id": 5,
+    "clinica_id": 1,
+    "usuario_id": 17,
+    "fecha_compra": "2025-11-26T05:00:00.000Z",
+    "monto": "10.00"
+  },
+  {
+    "id": 6,
+    "clinica_id": 2,
+    "usuario_id": 16,
+    "fecha_compra": "2025-11-26T05:00:00.000Z",
+    "monto": "10.00"
+  },
+  {
+    "id": 7,
+    "clinica_id": 2,
+    "usuario_id": 20,
+    "fecha_compra": "2025-11-26T05:00:00.000Z",
+    "monto": "10.00"
+  }
+]

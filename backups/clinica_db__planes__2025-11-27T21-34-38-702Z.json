@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "nombre": "Clínica Pequeña",
+    "precio": "20.00",
+    "pacientes_max": 100,
+    "doctores_max": 2,
+    "sucursales_incluidas": 0,
+    "descripcion": "Plan por defecto creado automáticamente (100 pacientes, 2 doctores)"
+  }
+]

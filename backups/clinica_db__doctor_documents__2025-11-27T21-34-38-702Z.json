@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "user_id": 1,
+    "filename": "logo.png",
+    "path": "/uploads/documents/1764046075910-581776412.png",
+    "url": "/uploads/documents/1764046075910-581776412.png",
+    "creado_en": "2025-11-25T04:47:55.000Z"
+  },
+  {
+    "id": 2,
+    "user_id": 1,
+    "filename": "Imagen de WhatsApp 2025-09-17 a las 12.40.28_a20fc992.jpg",
+    "path": "/uploads/documents/1764046179639-639775465.jpg",
+    "url": "/uploads/documents/1764046179639-639775465.jpg",
+    "creado_en": "2025-11-25T04:49:39.000Z"
+  },
+  {
+    "id": 3,
+    "user_id": 1,
+    "filename": "cedula2.jpg",
+    "path": "/uploads/documents/1764046249983-985947823.jpg",
+    "url": "/uploads/documents/1764046249983-985947823.jpg",
+    "creado_en": "2025-11-25T04:50:49.000Z"
+  },
+  {
+    "id": 4,
+    "user_id": 9,
+    "filename": "d72d83b7-7f0f-4c81-a791-40041f792dd5.png",
+    "path": "/uploads/documents/1764114669495-909940447.png",
+    "url": "/uploads/documents/1764114669495-909940447.png",
+    "creado_en": "2025-11-25T23:51:09.000Z"
+  },
+  {
+    "id": 5,
+    "user_id": 9,
+    "filename": "ChatGPT Image 8 nov 2025, 14_12_53.png",
+    "path": "/uploads/documents/1764114673345-298934511.png",
+    "url": "/uploads/documents/1764114673345-298934511.png",
+    "creado_en": "2025-11-25T23:51:13.000Z"
+  },
+  {
+    "id": 11,
+    "user_id": 17,
+    "filename": "Imagen de WhatsApp 2025-09-17 a las 12.40.28_a20fc992.png",
+    "path": "/uploads/documents/1764131038776-258253434.png",
+    "url": "/uploads/documents/1764131038776-258253434.png",
+    "creado_en": "2025-11-26T04:23:58.000Z"
+  },
+  {
+    "id": 12,
+    "user_id": 17,
+    "filename": "Imagen de WhatsApp 2025-09-17 a las 12.40.28_a20fc992.jpg",
+    "path": "/uploads/documents/1764131045200-678261195.jpg",
+    "url": "/uploads/documents/1764131045200-678261195.jpg",
+    "creado_en": "2025-11-26T04:24:05.000Z"
+  }
+]

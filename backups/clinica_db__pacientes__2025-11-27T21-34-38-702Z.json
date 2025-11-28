@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "nombres": "Andres",
+    "apellidos": "Montesdeoca",
+    "cedula": "0941778771",
+    "telefono": "0962542536",
+    "direccion": "Duran-Guayaquil",
+    "fecha_nacimiento": "1993-11-24T05:00:00.000Z",
+    "creado_en": "2025-11-25T00:08:28.000Z",
+    "clinica_id": 1,
+    "doctor_id": 1
+  },
+  {
+    "id": 2,
+    "nombres": "Domenica",
+    "apellidos": "Montesdeoca",
+    "cedula": "0924236391",
+    "telefono": "1234567890",
+    "direccion": "Guayaquil",
+    "fecha_nacimiento": "2000-11-24T05:00:00.000Z",
+    "creado_en": "2025-11-25T00:14:45.000Z",
+    "clinica_id": 1,
+    "doctor_id": null
+  },
+  {
+    "id": 3,
+    "nombres": "Carlos",
+    "apellidos": "Montesdeoca",
+    "cedula": "0941778771",
+    "telefono": "1234567890",
+    "direccion": "Duran",
+    "fecha_nacimiento": "1993-11-25T05:00:00.000Z",
+    "creado_en": "2025-11-25T23:48:45.000Z",
+    "clinica_id": 1,
+    "doctor_id": 9
+  },
+  {
+    "id": 4,
+    "nombres": "karen",
+    "apellidos": "karen",
+    "cedula": "1234567890",
+    "telefono": "1234567890",
+    "direccion": "duran",
+    "fecha_nacimiento": "2025-11-25T05:00:00.000Z",
+    "creado_en": "2025-11-26T02:30:34.000Z",
+    "clinica_id": null,
+    "doctor_id": 15
+  },
+  {
+    "id": 5,
+    "nombres": "daniel",
+    "apellidos": "palacios",
+    "cedula": "0924236391",
+    "telefono": "1234566",
+    "direccion": "Duran",
+    "fecha_nacimiento": "2014-11-25T05:00:00.000Z",
+    "creado_en": "2025-11-26T04:27:44.000Z",
+    "clinica_id": 1,
+    "doctor_id": 17
+  }
+]

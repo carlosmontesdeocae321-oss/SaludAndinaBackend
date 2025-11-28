@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "clinica_id": 1,
+    "fecha_compra": "2025-11-25T02:42:06.000Z",
+    "monto": "1.00"
+  },
+  {
+    "id": 2,
+    "clinica_id": 1,
+    "fecha_compra": "2025-11-25T02:53:04.000Z",
+    "monto": "1.00"
+  },
+  {
+    "id": 3,
+    "clinica_id": 1,
+    "fecha_compra": "2025-11-25T02:53:54.000Z",
+    "monto": "1.00"
+  }
+]

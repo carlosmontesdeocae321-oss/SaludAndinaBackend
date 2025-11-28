@@ -11,11 +11,23 @@ router.get('/mis-datos', auth, async (req, res) => {
   try {
     if (!req.user) return res.status(401).json({ message: 'No autenticado' });
     const db = require('../config/db');
-    const userInfo = { usuario: null, clinica: null, rol: req.user.rol, dueno: req.user.dueno === true };
+    const userInfo = { usuario: null, clinica: null, rol: req.user.rol, dueno: req.user.dueno === true, is_app_admin: false };
 
     // Obtener nombre de usuario
     const [urows] = await db.query('SELECT usuario FROM usuarios WHERE id = ? LIMIT 1', [req.user.id]);
     if (urows && urows[0]) userInfo.usuario = urows[0].usuario;
+
+    // Determinar si este usuario es el administrador global de la app.
+    // Se pueden configurar `APP_ADMIN_USER` (nombre de usuario) o `APP_ADMIN_ID` (id numérico)
+    try {
+      const envAdminUser = process.env.APP_ADMIN_USER;
+      const envAdminId = process.env.APP_ADMIN_ID ? parseInt(process.env.APP_ADMIN_ID, 10) : null;
+      if ((envAdminId && req.user.id === envAdminId) || (envAdminUser && userInfo.usuario === envAdminUser)) {
+        userInfo.is_app_admin = true;
+      }
+    } catch (e) {
+      // Ignore env parsing errors and keep is_app_admin false
+    }
 
     if (req.user.rol === 'doctor' && !req.user.clinica_id) {
       // Doctor individual -> contar pacientes por doctor y considerar compras individuales

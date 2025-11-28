@@ -1,6 +1,7 @@
 const doctorProfilesModelo = require('../modelos/doctorProfilesModelo');
 const doctorDocumentsModelo = require('../modelos/doctorDocumentsModelo');
 const path = require('path');
+const fs = require('fs');
 
 async function verPerfil(req, res) {
   try {
@@ -77,7 +78,24 @@ async function listarDocumentos(req, res) {
     const userId = req.params.userId;
     if (!userId) return res.status(400).json({ message: 'userId es requerido' });
     const docs = await doctorDocumentsModelo.listarDocumentosPorUsuario(userId);
-    res.json(docs);
+    // Filter out entries whose files are missing on disk (avoid ENOENT when serving later)
+    const existing = [];
+    for (const d of docs) {
+      try {
+        // d.path usually stores something like '/uploads/documents/filename.ext'
+        const rel = d.path && d.path.startsWith('/') ? d.path.slice(1) : d.path;
+        const full = path.join(__dirname, '..', rel || '');
+        if (full && fs.existsSync(full)) {
+          existing.push(d);
+        } else {
+          console.warn('Documento referenciado pero no encontrado en disco:', full);
+        }
+      } catch (e) {
+        // ignore individual file errors
+        console.warn('Error comprobando documento en disco:', e);
+      }
+    }
+    res.json(existing);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -2,12 +2,26 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 
 // Middleware global
 app.use(cors());
 app.use(express.json()); // Para recibir JSON en body
 
 // Servir archivos estáticos subidos
+// Ensure uploads directories exist (important on ephemeral hosts)
+const uploadsRoot = path.join(__dirname, 'uploads');
+const uploadsDirs = ['avatars', 'documents', 'historial'];
+try {
+    if (!fs.existsSync(uploadsRoot)) fs.mkdirSync(uploadsRoot, { recursive: true });
+    for (const d of uploadsDirs) {
+        const p = path.join(uploadsRoot, d);
+        if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
+    }
+} catch (e) {
+    console.error('Error creando carpetas de uploads:', e);
+}
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Servir páginas públicas del backend (paneles simples)
 app.use('/admin', express.static(path.join(__dirname, 'public')));

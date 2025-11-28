@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Clinica App — Plataforma Moderna</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#2563eb;--primary-2:#1e40af;--dark:#0f172a;--muted:#64748b;--bg:#f8fafc;--card:#ffffff;--radius:14px;}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;background:var(--bg);color:var(--dark);}
+    header{background:var(--card);box-shadow:0 3px 12px rgba(16,24,40,0.06);position:sticky;top:0;z-index:40}
+    nav{width:92%;max-width:1200px;margin:auto;padding:16px 0;display:flex;align-items:center;justify-content:space-between}
+    .logo{font-weight:700;color:var(--primary);text-decoration:none;font-size:1.4rem}
+    .navlinks a{margin-left:18px;text-decoration:none;color:var(--dark);font-weight:600;opacity:.92}
+    .navlinks a:hover{color:var(--primary)}
+
+    .hero{padding:100px 0 60px;text-align:center;background:linear-gradient(180deg,var(--primary),var(--primary-2));color:white}
+    .hero h1{font-size:3rem;margin-bottom:10px}
+    .hero p{max-width:760px;margin:0 auto;font-size:1.05rem;opacity:.95}
+    .actions{margin-top:26px;display:flex;gap:12px;justify-content:center}
+    .btn{padding:12px 24px;border-radius:12px;font-weight:700;text-decoration:none;display:inline-block}
+    .btn-ghost{background:transparent;border:2px solid rgba(255,255,255,0.18);color:white}
+    .btn-primary{background:white;color:var(--primary-2)}
+
+    .section{padding:64px 0}
+    h2{text-align:center;font-size:1.9rem;margin-bottom:22px}
+
+    .features{width:92%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+    .feature{background:var(--card);padding:24px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06);text-align:center}
+    .feature h3{color:var(--primary-2);margin-bottom:8px}
+    .feature p{color:var(--muted);font-size:.98rem}
+
+    /* gallery */
+    .gallery{width:92%;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    @media(max-width:900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.gallery{grid-template-columns:1fr}}
+    .thumb{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 10px 28px rgba(2,6,23,0.06);cursor:pointer;position:relative}
+    .thumb img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:4/7;transition:transform .28s ease}
+    .thumb:hover img{transform:scale(1.03)}
+    .thumb .label{position:absolute;left:8px;bottom:8px;background:rgba(0,0,0,0.45);color:white;padding:6px 10px;border-radius:10px;font-size:.85rem}
+
+    /* lightbox */
+    .lb{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(3,7,18,0.6);z-index:90;padding:28px}
+    .lb.open{display:flex}
+    .lb .stage{max-width:1200px;width:100%;max-height:90vh;display:flex;align-items:center;gap:18px}
+    .lb .imgwrap{flex:1;display:flex;align-items:center;justify-content:center}
+    .lb img{max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 20px 40px rgba(2,6,23,0.5)}
+    .lb .controls{width:90px;display:flex;flex-direction:column;gap:12px;align-items:center}
+    .lb button{background:var(--card);border-radius:12px;border:none;padding:10px 12px;box-shadow:0 6px 18px rgba(2,6,23,0.06);cursor:pointer}
+    .lb .meta{margin-top:10px;color:var(--muted);font-weight:600}
+
+    .lb .close{position:fixed;right:22px;top:22px;background:var(--card);padding:10px 12px;border-radius:12px;z-index:100}
+    .lb .nav{display:flex;gap:8px}
+
+    footer{padding:22px 0;text-align:center;color:var(--muted);margin-top:34px}
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="#">ClinicaApp</a>
+    <div class="navlinks">
+      <a href="#features">Funciones</a>
+      <a href="#screens">App</a>
+      <a href="#contact">Contacto</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>La plataforma profesional para clínicas</h1>
+  <p>Organiza pacientes, agenda, médicos y cobros con una experiencia rápida, segura y pensada para LATAM.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="#contact">Solicitar demo</a>
+    <a class="btn btn-ghost" href="#screens">Ver pantallas</a>
+  </div>
+</section>
+
+<section id="features" class="section">
+  <h2>Qué incluye</h2>
+  <div class="features">
+    <div class="feature"><h3>Historias clínicas</h3><p>Registra evoluciones, diagnósticos y adjuntos de forma segura.</p></div>
+    <div class="feature"><h3>Agenda y recordatorios</h3><p>Evita ausencias con confirmaciones y notificaciones automatizadas.</p></div>
+    <div class="feature"><h3>Gestión de personal</h3><p>Roles, permisos y perfiles públicos para tus médicos.</p></div>
+    <div class="feature"><h3>Cobros integrados</h3><p>Venta de cupos, pasarelas y QR para facilitar pagos.</p></div>
+    <div class="feature"><h3>Reportes</h3><p>Exporta métricas de citas, ingresos y actividad por clínica.</p></div>
+    <div class="feature"><h3>Seguridad</h3><p>Encriptado, backups y controles de acceso por usuario.</p></div>
+  </div>
+</section>
+
+<section id="screens" class="section">
+  <h2>Pantallas (clic para ampliar)</h2>
+  <div class="gallery" aria-label="Galería de pantallas de la app">
+    <div class="thumb" data-index="0" tabindex="0"><img src="images/s1.png" alt="Pantalla 1" /><div class="label">s1.png</div></div>
+    <div class="thumb" data-index="1" tabindex="0"><img src="images/s2.png" alt="Pantalla 2" /><div class="label">s2.png</div></div>
+    <div class="thumb" data-index="2" tabindex="0"><img src="images/s3.png" alt="Pantalla 3" /><div class="label">s3.png</div></div>
+    <div class="thumb" data-index="3" tabindex="0"><img src="images/s4.png" alt="Pantalla 4" /><div class="label">s4.png</div></div>
+    <div class="thumb" data-index="4" tabindex="0"><img src="images/s5.png" alt="Pantalla 5" /><div class="label">s5.png</div></div>
+    <div class="thumb" data-index="5" tabindex="0"><img src="images/s6.png" alt="Pantalla 6" /><div class="label">s6.png</div></div>
+    <div class="thumb" data-index="6" tabindex="0"><img src="images/s7.png" alt="Pantalla 7" /><div class="label">s7.png</div></div>
+    <div class="thumb" data-index="7" tabindex="0"><img src="images/s8.png" alt="Pantalla 8" /><div class="label">s8.png</div></div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lb" id="lightbox" role="dialog" aria-hidden="true" aria-label="Imagen ampliada">
+  <button class="close" id="lbClose" aria-label="Cerrar">Cerrar</button>
+  <div class="stage">
+    <div class="imgwrap">
+      <img id="lbImage" src="" alt="Imagen ampliada" />
+      <div class="meta" id="lbMeta" style="display:none;margin-top:12px;color:var(--card)"></div>
+    </div>
+    <div class="controls">
+      <div class="nav">
+        <button id="prevBtn" aria-label="Anterior">◀</button>
+        <button id="nextBtn" aria-label="Siguiente">▶</button>
+      </div>
+      <div style="height:6px"></div>
+      <button id="downloadBtn" aria-label="Descargar">Descargar</button>
+    </div>
+  </div>
+</div>
+
+<section id="contact" class="section" style="padding-top:40px">
+  <div style="width:92%;max-width:900px;margin:0 auto;text-align:center;background:var(--card);padding:34px;border-radius:12px;box-shadow:0 8px 28px rgba(2,6,23,0.06)">
+    <h2>Contacto / Demo</h2>
+    <p style="color:var(--muted)">¿Quieres que montemos la app, integremos pasarela o hagamos personalización? Escríbenos:</p>
+    <p style="font-weight:700">ventas@tuempresa.com</p>
+  </div>
+</section>
+
+<footer>
+  ClinicaApp · © 2025 — Hecho para tu clínica
+</footer>
+
+<script>
+(function(){
+  const images = [
+    'images/s1.png','images/s2.png','images/s3.png','images/s4.png','images/s5.png','images/s6.png','images/s7.png','images/s8.png'
+  ];
+
+  const thumbs = Array.from(document.querySelectorAll('.thumb'));
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImage');
+  const lbClose = document.getElementById('lbClose');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  let idx = 0;
+
+  function openAt(i){
+    idx = (i + images.length) % images.length;
+    lbImg.src = images[idx];
+    lbImg.alt = 'Pantalla '+(idx+1);
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+    // focus trap simple
+    lbClose.focus();
+    history.replaceState(null, '', '#screen-'+(idx+1));
+  }
+
+  function closeLB(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    try{ history.replaceState(null,'', ' '); }catch(e){}
+  }
+
+  thumbs.forEach(t=>{
+    const i = Number(t.dataset.index);
+    t.addEventListener('click', ()=> openAt(i));
+    t.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') openAt(i); });
+  });
+
+  lbClose.addEventListener('click', closeLB);
+  prevBtn.addEventListener('click', ()=> openAt(idx-1));
+  nextBtn.addEventListener('click', ()=> openAt(idx+1));
+
+  downloadBtn.addEventListener('click', ()=>{
+    const a = document.createElement('a'); a.href = images[idx]; a.download = images[idx].split('/').pop(); document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  // keyboard
+  window.addEventListener('keydown', (e)=>{
+    if(lb.classList.contains('open')){
+      if(e.key==='Escape') closeLB();
+      if(e.key==='ArrowRight') openAt(idx+1);
+      if(e.key==='ArrowLeft') openAt(idx-1);
+    }
+  });
+
+  // close clicking outside image
+  lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
+
+  // deep-link if hash present
+  const hash = location.hash.match(/#screen-(\d+)/);
+  if(hash){ const i = Number(hash[1]) - 1; if(i>=0 && i<images.length) setTimeout(()=>openAt(i),200); }
+
+})();
+</script>
+
+</body>
+</html>
